@@ -1,0 +1,32 @@
+{% extends 'meetups/base/base.html'%}
+{% load static %}
+
+
+    {% block title %} 
+        All Meetups
+    {% endblock %}
+    {% block block_site_css %}
+        <link rel="stylesheet" href="{% static 'meetups/styles/all_meetups.css' %}">
+    {% endblock %}
+    
+    {% block main_heading %}
+        Feeling lonely and wanna hang out with some frineds?
+    {% endblock %}
+    {% block header_content %}
+        <p><strong>We've got a lot of meetups coming up soon.</strong></p>
+        <p><strong>Find the one that you wanna join below!</strong></p>
+    {% endblock %}
+
+    {% block body %}
+        <section>
+            <h2>Upcoming Meetups</h2>
+            <ol>
+                {% for meetup_item in meetups%}
+                    {% if current_date <= meetup_item.date %}
+                        {% include 'meetups/includes/meetup_item.html' with title=meetup_item.title image=meetup_item.image.url location=meetup_item.location.name slug=meetup_item.slug date=meetup_item.date %} 
+                    {% endif %}
+                        
+                {% endfor %}
+            </ol>
+        </section>
+    {% endblock %}
